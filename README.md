@@ -2,10 +2,10 @@
 
 ## How to run
 
-Prepare two terminal. One one terminal, go to folder `github.com/nafisalfiani/p3-ugc-7-8/account-service`:
+Prepare two terminal. One one terminal, go to folder `account-service`:
 
 ```shell
-cd github.com/nafisalfiani/p3-ugc-7-8/account-service
+cd account-service
 ```
 
 And execute:
@@ -14,10 +14,10 @@ And execute:
 make run
 ```
 
-And on the other, go to folder `"github.com/nafisalfiani/p3-ugc-7-8/api-gateway`:
+And on the other, go to folder `api-gateway`:
 
 ```shell
-cd "github.com/nafisalfiani/p3-ugc-7-8/api-gateway
+cd api-gateway
 ```
 
 And execute:
