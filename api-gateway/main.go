@@ -49,8 +49,14 @@ func main() {
 	defer cc.Close()
 	userClient := grpc.NewUserServiceClient(cc)
 
+	// init cache
+	cache, err := config.InitCache(cfg, logger)
+	if err != nil {
+		log.Fatalf("failed to init cache: %v", err)
+	}
+
 	// init domain
-	dom := domain.Init(logger, userClient)
+	dom := domain.Init(logger, userClient, cache)
 
 	// init usecase
 	usecase := usecase.Init(cfg, logger, dom)

@@ -73,6 +73,7 @@ func (u *user) Get(ctx context.Context, req entity.User) (entity.User, error) {
 		u.logger.Info(fmt.Sprintf("cache for user:%v found", req.Id.Hex()))
 		return user, nil
 	}
+	u.logger.Info(fmt.Sprintf("cache for user:%v not found", req.Id.Hex()))
 
 	if err := u.collection.FindOne(ctx, filter).Decode(&user); err != nil {
 		return user, errorAlias(err)
