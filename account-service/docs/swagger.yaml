@@ -1,0 +1,11 @@
+info:
+  contact:
+    email: nafisa.alfiani.ica@gmail.com
+    name: Nafisa Alfiani
+paths: {}
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

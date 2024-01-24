@@ -1,0 +1,17 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {
+            "name": "Nafisa Alfiani",
+            "email": "nafisa.alfiani.ica@gmail.com"
+        }
+    },
+    "paths": {},
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

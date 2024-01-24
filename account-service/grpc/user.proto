@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "src/handler/grpc";
+
+// User definition
+message User {
+  string Id = 1;
+  string Name = 2;
+  string Email = 3;
+  string Password = 4;
+}
+
+// UserList definition
+message UserList {
+  repeated User users = 1;
+}
+
+// UserService definition
+service UserService {
+  // GetUser get specific user
+  rpc GetUser(User) returns (User);
+
+  // AddUser create new user
+  rpc AddUser(User) returns (User);
+
+  // UpdateUser update existing user
+  rpc UpdateUser(User) returns (User);
+
+  // DeleteUser delete existing user
+  rpc DeleteUser(User) returns (google.protobuf.Empty);
+
+  // GetUsers get list of user
+  rpc GetUsers(google.protobuf.Empty) returns (UserList);
+}

@@ -1,0 +1,325 @@
+definitions:
+  entity.HttpResp:
+    properties:
+      data: {}
+      error:
+        type: string
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  entity.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  entity.LoginResp:
+    properties:
+      message:
+        type: string
+      token:
+        type: string
+    type: object
+  entity.RegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  entity.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  entity.UserCreateRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    required:
+    - email
+    - name
+    type: object
+  entity.UserUpdateRequest:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+info:
+  contact:
+    email: nafisa.alfiani.ica@gmail.com
+    name: Nafisa Alfiani
+paths:
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Allow existing user to login
+      parameters:
+      - description: login request
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/entity.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/entity.HttpResp'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.LoginResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      summary: Login existing user
+      tags:
+      - auth
+  /v1/register:
+    post:
+      consumes:
+      - application/json
+      description: Allow new user to register their account info
+      parameters:
+      - description: register request
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/entity.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/entity.HttpResp'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.User'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      summary: Register new user
+      tags:
+      - auth
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: Returns list of user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/entity.HttpResp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/entity.User'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      security:
+      - BearerAuth: []
+      summary: Get user list
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Creates new user
+      parameters:
+      - description: user create request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/entity.HttpResp'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.User'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      security:
+      - BearerAuth: []
+      summary: Create user
+      tags:
+      - users
+  /v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete existing user
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      security:
+      - BearerAuth: []
+      summary: Delete user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Get specific user
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/entity.HttpResp'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.User'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      security:
+      - BearerAuth: []
+      summary: Get user detail
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Get logged in user detail
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: user update request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/entity.HttpResp'
+            - properties:
+                data:
+                  $ref: '#/definitions/entity.User'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/entity.HttpResp'
+      security:
+      - BearerAuth: []
+      summary: Get user detail
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
