@@ -37,8 +37,13 @@ func main() {
 		logger.Fatalf("failed to connect to mongo. %v", err)
 	}
 
+	redis, err := config.InitCache(cfg, logger)
+	if err != nil {
+		logger.Fatalf("failed to connect to redis. %v", err)
+	}
+
 	// init domain
-	dom := domain.Init(db, logger)
+	dom := domain.Init(db, redis, logger)
 
 	// init handler
 	uc := usecase.Init(cfg, logger, dom)

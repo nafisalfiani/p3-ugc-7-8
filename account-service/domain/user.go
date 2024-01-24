@@ -2,10 +2,11 @@ package domain
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/entity"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/errors"
-
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -15,6 +16,7 @@ import (
 type user struct {
 	logger     *logrus.Logger
 	collection *mongo.Collection
+	cache      *redis.Client
 }
 
 type UserInterface interface {
@@ -26,24 +28,24 @@ type UserInterface interface {
 }
 
 // initUser creates user domain
-func initUser(logger *logrus.Logger, db *mongo.Collection) UserInterface {
+func initUser(logger *logrus.Logger, db *mongo.Collection, cache *redis.Client) UserInterface {
 	return &user{
 		logger:     logger,
 		collection: db,
+		cache:      cache,
 	}
 }
 
 // List returns list of users
-func (s *user) List(ctx context.Context) ([]entity.User, error) {
+func (u *user) List(ctx context.Context) ([]entity.User, error) {
 	users := []entity.User{}
-	cursor, err := s.collection.Find(ctx, bson.D{})
+	cursor, err := u.collection.Find(ctx, bson.D{})
 	if err != nil {
 		return users, errorAlias(err)
 	}
 	defer cursor.Close(ctx)
 
-	err = cursor.All(ctx, &users)
-	if err != nil {
+	if err := cursor.All(ctx, &users); err != nil {
 		return users, errorAlias(err)
 	}
 
@@ -51,8 +53,8 @@ func (s *user) List(ctx context.Context) ([]entity.User, error) {
 }
 
 // Get returns specific user by email
-func (s *user) Get(ctx context.Context, req entity.User) (entity.User, error) {
-	s.logger.Debug(req)
+func (u *user) Get(ctx context.Context, req entity.User) (entity.User, error) {
+	u.logger.Debug(req)
 	user := entity.User{}
 	var filter any
 
@@ -65,22 +67,33 @@ func (s *user) Get(ctx context.Context, req entity.User) (entity.User, error) {
 		filter = bson.M{"_id": req.Id}
 	}
 
-	err := s.collection.FindOne(ctx, filter).Decode(&user)
-	if err != nil {
+	// get from cache, if no error and user found, direct return
+	user, err := u.getUserCache(ctx, req.Id.Hex())
+	if err == nil && !user.Id.IsZero() {
+		u.logger.Info(fmt.Sprintf("cache for user:%v found", req.Id.Hex()))
+		return user, nil
+	}
+
+	if err := u.collection.FindOne(ctx, filter).Decode(&user); err != nil {
 		return user, errorAlias(err)
+	}
+
+	// set user cache if result found from mongo
+	if err := u.setUserCache(ctx, user); err != nil {
+		u.logger.Error(fmt.Sprintf("cache for user:%v failed to be set", req.Id.Hex()))
 	}
 
 	return user, nil
 }
 
 // Create creates new data
-func (s *user) Create(ctx context.Context, user entity.User) (entity.User, error) {
-	res, err := s.collection.InsertOne(ctx, user)
+func (u *user) Create(ctx context.Context, user entity.User) (entity.User, error) {
+	res, err := u.collection.InsertOne(ctx, user)
 	if err != nil {
 		return user, errorAlias(err)
 	}
 
-	newUser, err := s.Get(ctx, entity.User{Id: res.InsertedID.(primitive.ObjectID)})
+	newUser, err := u.Get(ctx, entity.User{Id: res.InsertedID.(primitive.ObjectID)})
 	if err != nil {
 		return newUser, errorAlias(err)
 	}
@@ -89,16 +102,16 @@ func (s *user) Create(ctx context.Context, user entity.User) (entity.User, error
 }
 
 // Update updates existing data
-func (s *user) Update(ctx context.Context, user entity.User) (entity.User, error) {
+func (u *user) Update(ctx context.Context, user entity.User) (entity.User, error) {
 	filter := bson.M{"_id": user.Id}
 	update := bson.M{"$set": user}
 
-	_, err := s.collection.UpdateOne(ctx, filter, update)
+	_, err := u.collection.UpdateOne(ctx, filter, update)
 	if err != nil {
 		return user, errorAlias(err)
 	}
 
-	newUser, err := s.Get(ctx, entity.User{Id: user.Id})
+	newUser, err := u.Get(ctx, entity.User{Id: user.Id})
 	if err != nil {
 		return newUser, errorAlias(err)
 	}
@@ -107,10 +120,10 @@ func (s *user) Update(ctx context.Context, user entity.User) (entity.User, error
 }
 
 // Delete deletes existing data
-func (s *user) Delete(ctx context.Context, user entity.User) error {
+func (u *user) Delete(ctx context.Context, user entity.User) error {
 	filter := bson.M{"_id": user.Id}
 
-	res, err := s.collection.DeleteOne(ctx, filter)
+	res, err := u.collection.DeleteOne(ctx, filter)
 	if err != nil {
 		return errorAlias(err)
 	}

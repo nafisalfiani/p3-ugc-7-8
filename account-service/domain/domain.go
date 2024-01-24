@@ -1,8 +1,8 @@
 package domain
 
 import (
+	"github.com/go-redis/redis/v8"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/errors"
-
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"gorm.io/gorm"
@@ -12,9 +12,9 @@ type Domains struct {
 	User UserInterface
 }
 
-func Init(db *mongo.Client, logger *logrus.Logger) *Domains {
+func Init(db *mongo.Client, cache *redis.Client, logger *logrus.Logger) *Domains {
 	return &Domains{
-		User: initUser(logger, db.Database("github.com/nafisalfiani/p3-ugc-7-8/account-service").Collection("user")),
+		User: initUser(logger, db.Database("account-service").Collection("user"), cache),
 	}
 }
 

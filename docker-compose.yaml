@@ -28,40 +28,40 @@ services:
     networks:
       - nats-redis-mongo-network
 
-  github.com/nafisalfiani/p3-ugc-7-8/account-service:
-    container_name: github.com/nafisalfiani/p3-ugc-7-8/account-service
-    build:
-      context: ./github.com/nafisalfiani/p3-ugc-7-8/account-service
-    environment:
-      - MONGO_DSN=mongodb://ica:password1234@mongodb:27017
-      - MONGO_MAX_IDLE_TIME=10s
-      - MONGO_MAX_IDLE_CONN=10
-      - AUTH_SECRETKEY=5dge967dus^8hs6dA$SU@JE
-      - LOG_LEVEL=debug
-      - SERVER_BASE=
-      - SERVER_PORT=50051
-    networks:
-      - nats-redis-mongo-network
-    depends_on:
-      - nats-server
-      - redis-server
-      - mongo-server
+  # account-service:
+  #   container_name: account-service
+  #   build:
+  #     context: ./account-service
+  #   environment:
+  #     - MONGO_DSN=mongodb://ica:password1234@mongodb:27017
+  #     - MONGO_MAX_IDLE_TIME=10s
+  #     - MONGO_MAX_IDLE_CONN=10
+  #     - AUTH_SECRETKEY=5dge967dus^8hs6dA$SU@JE
+  #     - LOG_LEVEL=debug
+  #     - SERVER_BASE=
+  #     - SERVER_PORT=50051
+  #   networks:
+  #     - nats-redis-mongo-network
+  #   depends_on:
+  #     - nats-server
+  #     - redis-server
+  #     - mongo-server
 
-  "github.com/nafisalfiani/p3-ugc-7-8/api-gateway:
-    container_name: "github.com/nafisalfiani/p3-ugc-7-8/api-gateway
-    build:
-      context: ./"github.com/nafisalfiani/p3-ugc-7-8/api-gateway
-    environment:
-      - AUTH_SECRETKEY=5dge967dus^8hs6dA$SU@JE
-      - LOG_LEVEL=debug
-      - SERVER_BASE=
-      - SERVER_PORT=8080
-      - GRPC_SERVER_BASE=localhost
-      - GRPC_SERVER_PORT=50051
-    networks:
-      - nats-redis-mongo-network
-    depends_on:
-      - github.com/nafisalfiani/p3-ugc-7-8/account-service
+  # api-gateway:
+  #   container_name: api-gateway
+  #   build:
+  #     context: ./api-gateway
+  #   environment:
+  #     - AUTH_SECRETKEY=5dge967dus^8hs6dA$SU@JE
+  #     - LOG_LEVEL=debug
+  #     - SERVER_BASE=
+  #     - SERVER_PORT=8080
+  #     - GRPC_SERVER_BASE=localhost
+  #     - GRPC_SERVER_PORT=50051
+  #   networks:
+  #     - nats-redis-mongo-network
+  #   depends_on:
+  #     - account-service
 
 networks:
   nats-redis-mongo-network:

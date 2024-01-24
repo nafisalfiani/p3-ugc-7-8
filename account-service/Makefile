@@ -15,5 +15,5 @@ build:
 	@go build -o ./build/app ./main.go
 
 .PHONY: run
-run: swag build
+run: build
 	@./build/app
