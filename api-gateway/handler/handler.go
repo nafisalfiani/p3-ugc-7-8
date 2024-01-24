@@ -1,10 +1,6 @@
 package handler
 
 import (
-	"api-gateway/config"
-	"api-gateway/entity"
-	"api-gateway/errors"
-	"api-gateway/usecase"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -13,6 +9,11 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/config"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/errors"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/usecase"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"

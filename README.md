@@ -14,10 +14,10 @@ And execute:
 make run
 ```
 
-And on the other, go to folder `api-gateway`:
+And on the other, go to folder `"github.com/nafisalfiani/p3-ugc-7-8/api-gateway`:
 
 ```shell
-cd api-gateway
+cd "github.com/nafisalfiani/p3-ugc-7-8/api-gateway
 ```
 
 And execute:

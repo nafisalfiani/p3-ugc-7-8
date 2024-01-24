@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"api-gateway/config"
-	"api-gateway/domain"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/config"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/domain"
 
 	"github.com/sirupsen/logrus"
 )

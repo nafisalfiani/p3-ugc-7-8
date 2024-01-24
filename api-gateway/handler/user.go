@@ -1,9 +1,10 @@
 package handler
 
 import (
-	"api-gateway/entity"
-	"api-gateway/errors"
 	"net/http"
+
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/errors"
 
 	"github.com/labstack/echo/v4"
 )

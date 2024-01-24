@@ -1,12 +1,13 @@
 package handler
 
 import (
-	"api-gateway/entity"
-	"api-gateway/errors"
 	"context"
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/errors"
 
 	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"

@@ -47,10 +47,10 @@ services:
       - redis-server
       - mongo-server
 
-  api-gateway:
-    container_name: api-gateway
+  "github.com/nafisalfiani/p3-ugc-7-8/api-gateway:
+    container_name: "github.com/nafisalfiani/p3-ugc-7-8/api-gateway
     build:
-      context: ./api-gateway
+      context: ./"github.com/nafisalfiani/p3-ugc-7-8/api-gateway
     environment:
       - AUTH_SECRETKEY=5dge967dus^8hs6dA$SU@JE
       - LOG_LEVEL=debug

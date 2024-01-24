@@ -38,7 +38,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/entity.LoginRequest"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginRequest"
                         }
                     }
                 ],
@@ -48,13 +48,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/entity.HttpResp"
+                                    "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/entity.LoginResp"
+                                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginResp"
                                         }
                                     }
                                 }
@@ -64,13 +64,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -96,7 +96,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/entity.RegisterRequest"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.RegisterRequest"
                         }
                     }
                 ],
@@ -106,13 +106,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/entity.HttpResp"
+                                    "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/entity.User"
+                                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User"
                                         }
                                     }
                                 }
@@ -122,13 +122,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -158,7 +158,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/entity.HttpResp"
+                                    "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                                 },
                                 {
                                     "type": "object",
@@ -166,7 +166,7 @@ const docTemplate = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/entity.User"
+                                                "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User"
                                             }
                                         }
                                     }
@@ -177,13 +177,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -212,7 +212,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/entity.UserCreateRequest"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserCreateRequest"
                         }
                     }
                 ],
@@ -222,13 +222,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/entity.HttpResp"
+                                    "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/entity.User"
+                                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User"
                                         }
                                     }
                                 }
@@ -238,13 +238,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -283,13 +283,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/entity.HttpResp"
+                                    "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/entity.User"
+                                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User"
                                         }
                                     }
                                 }
@@ -299,13 +299,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -341,7 +341,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/entity.UserUpdateRequest"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserUpdateRequest"
                         }
                     }
                 ],
@@ -351,13 +351,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/entity.HttpResp"
+                                    "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/entity.User"
+                                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User"
                                         }
                                     }
                                 }
@@ -367,13 +367,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -408,19 +408,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/entity.HttpResp"
+                            "$ref": "#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp"
                         }
                     }
                 }
@@ -428,7 +428,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "entity.HttpResp": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp": {
             "type": "object",
             "properties": {
                 "data": {},
@@ -443,7 +443,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entity.LoginRequest": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -458,7 +458,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entity.LoginResp": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginResp": {
             "type": "object",
             "properties": {
                 "message": {
@@ -469,7 +469,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entity.RegisterRequest": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.RegisterRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -488,7 +488,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entity.User": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User": {
             "type": "object",
             "properties": {
                 "email": {
@@ -502,7 +502,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entity.UserCreateRequest": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserCreateRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -517,7 +517,7 @@ const docTemplate = `{
                 }
             }
         },
-        "entity.UserUpdateRequest": {
+        "github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserUpdateRequest": {
             "type": "object",
             "properties": {
                 "email": {

@@ -1,4 +1,4 @@
-module github.com/nafisalfiani/p3-ugc-7-8/github.com/nafisalfiani/p3-ugc-7-8/account-service
+module github.com/nafisalfiani/p3-ugc-7-8/account-service
 
 go 1.21.6
 

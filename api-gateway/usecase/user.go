@@ -1,10 +1,11 @@
 package usecase
 
 import (
-	"api-gateway/config"
-	"api-gateway/domain"
-	"api-gateway/entity"
 	"context"
+
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/config"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/domain"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
 )
 
 type user struct {

@@ -1,5 +1,5 @@
 definitions:
-  entity.HttpResp:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp:
     properties:
       data: {}
       error:
@@ -9,7 +9,7 @@ definitions:
       status:
         type: integer
     type: object
-  entity.LoginRequest:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginRequest:
     properties:
       email:
         type: string
@@ -19,14 +19,14 @@ definitions:
     - email
     - password
     type: object
-  entity.LoginResp:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginResp:
     properties:
       message:
         type: string
       token:
         type: string
     type: object
-  entity.RegisterRequest:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.RegisterRequest:
     properties:
       email:
         type: string
@@ -39,7 +39,7 @@ definitions:
     - name
     - password
     type: object
-  entity.User:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User:
     properties:
       email:
         type: string
@@ -48,7 +48,7 @@ definitions:
       name:
         type: string
     type: object
-  entity.UserCreateRequest:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserCreateRequest:
     properties:
       email:
         type: string
@@ -58,7 +58,7 @@ definitions:
     - email
     - name
     type: object
-  entity.UserUpdateRequest:
+  github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserUpdateRequest:
     properties:
       email:
         type: string
@@ -83,7 +83,7 @@ paths:
         name: login
         required: true
         schema:
-          $ref: '#/definitions/entity.LoginRequest'
+          $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginRequest'
       produces:
       - application/json
       responses:
@@ -91,19 +91,19 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/entity.HttpResp'
+            - $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
             - properties:
                 data:
-                  $ref: '#/definitions/entity.LoginResp'
+                  $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.LoginResp'
               type: object
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       summary: Login existing user
       tags:
       - auth
@@ -118,7 +118,7 @@ paths:
         name: register
         required: true
         schema:
-          $ref: '#/definitions/entity.RegisterRequest'
+          $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.RegisterRequest'
       produces:
       - application/json
       responses:
@@ -126,19 +126,19 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/entity.HttpResp'
+            - $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
             - properties:
                 data:
-                  $ref: '#/definitions/entity.User'
+                  $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User'
               type: object
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       summary: Register new user
       tags:
       - auth
@@ -154,21 +154,21 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/entity.HttpResp'
+            - $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/entity.User'
+                    $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User'
                   type: array
               type: object
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       security:
       - BearerAuth: []
       summary: Get user list
@@ -184,7 +184,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/entity.UserCreateRequest'
+          $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserCreateRequest'
       produces:
       - application/json
       responses:
@@ -192,19 +192,19 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/entity.HttpResp'
+            - $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
             - properties:
                 data:
-                  $ref: '#/definitions/entity.User'
+                  $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User'
               type: object
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       security:
       - BearerAuth: []
       summary: Create user
@@ -227,15 +227,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       security:
       - BearerAuth: []
       summary: Delete user
@@ -258,19 +258,19 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/entity.HttpResp'
+            - $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
             - properties:
                 data:
-                  $ref: '#/definitions/entity.User'
+                  $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User'
               type: object
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       security:
       - BearerAuth: []
       summary: Get user detail
@@ -291,7 +291,7 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/entity.UserUpdateRequest'
+          $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.UserUpdateRequest'
       produces:
       - application/json
       responses:
@@ -299,19 +299,19 @@ paths:
           description: OK
           schema:
             allOf:
-            - $ref: '#/definitions/entity.HttpResp'
+            - $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
             - properties:
                 data:
-                  $ref: '#/definitions/entity.User'
+                  $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.User'
               type: object
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/entity.HttpResp'
+            $ref: '#/definitions/github_com_nafisalfiani_p3-ugc-7-8_api-gateway_entity.HttpResp'
       security:
       - BearerAuth: []
       summary: Get user detail

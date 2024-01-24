@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"api-gateway/entity"
 	"context"
+
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
 
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/grpc"
 

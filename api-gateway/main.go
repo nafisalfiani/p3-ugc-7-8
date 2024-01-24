@@ -1,15 +1,15 @@
 package main
 
 import (
-	"api-gateway/config"
-	"api-gateway/docs"
-	"api-gateway/domain"
-	"api-gateway/handler"
-	"api-gateway/usecase"
 	"fmt"
 	"log"
 
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/grpc"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/config"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/docs"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/domain"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/handler"
+	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/usecase"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
