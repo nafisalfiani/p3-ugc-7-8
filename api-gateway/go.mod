@@ -10,6 +10,7 @@ require (
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/nafisalfiani/p3-ugc-7-8/account-service v0.0.0-00010101000000-000000000000
 	github.com/sirupsen/logrus v1.9.3
+	github.com/streadway/amqp v1.1.0
 	github.com/swaggo/echo-swagger v1.4.1
 	github.com/swaggo/swag v1.16.2
 	golang.org/x/crypto v0.18.0

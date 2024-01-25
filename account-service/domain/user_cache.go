@@ -11,7 +11,7 @@ import (
 
 func (s *user) getUserCache(ctx context.Context, userId string) (entity.User, error) {
 	var user entity.User
-	userStr, err := s.cache.Get(ctx, fmt.Sprintf("user:%v", userId)).Result()
+	userStr, err := s.cache.Get(ctx, fmt.Sprintf(entity.RedisKeyUser, userId)).Result()
 	if err != nil {
 		return user, err
 	}
@@ -29,7 +29,7 @@ func (s *user) setUserCache(ctx context.Context, user entity.User) error {
 		return err
 	}
 
-	if err := s.cache.Set(ctx, fmt.Sprintf("user:%v", user.Id.Hex()), userJson, time.Hour).Err(); err != nil {
+	if err := s.cache.Set(ctx, fmt.Sprintf(entity.RedisKeyUser, user.Id.Hex()), userJson, time.Hour).Err(); err != nil {
 		return err
 	}
 

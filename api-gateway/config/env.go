@@ -8,14 +8,19 @@ import (
 )
 
 type Value struct {
-	Auth       Auth
-	Log        Log
-	Server     Server
-	GrpcServer Server
+	Auth          Auth
+	Log           Log
+	Server        Server
+	GrpcServer    Server
+	MessageBroker MessageBroker
 }
 
 type Auth struct {
 	SecretKey string
+}
+
+type Log struct {
+	Level string
 }
 
 type Server struct {
@@ -23,8 +28,8 @@ type Server struct {
 	Port int
 }
 
-type Log struct {
-	Level string
+type MessageBroker struct {
+	Url string
 }
 
 func InitEnv() (*Value, error) {
@@ -57,6 +62,9 @@ func InitEnv() (*Value, error) {
 		GrpcServer: Server{
 			Base: os.Getenv("GRPC_SERVER_BASE"),
 			Port: grpcPort,
+		},
+		MessageBroker: MessageBroker{
+			Url: os.Getenv("RABBITMQ_URL"),
 		},
 	}, nil
 }

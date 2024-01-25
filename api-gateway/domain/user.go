@@ -8,6 +8,7 @@ import (
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/grpc"
 	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
 	"github.com/sirupsen/logrus"
+	"github.com/streadway/amqp"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -15,6 +16,7 @@ type user struct {
 	logger     *logrus.Logger
 	userClient grpc.UserServiceClient
 	cache      *redis.Client
+	broker     *amqp.Connection
 }
 
 type UserInterface interface {
@@ -23,14 +25,17 @@ type UserInterface interface {
 	Create(ctx context.Context, user entity.User) (entity.User, error)
 	Update(ctx context.Context, user entity.User) (entity.User, error)
 	Delete(ctx context.Context, user entity.User) error
+
+	UpdateUserCache(ctx context.Context, user entity.User) error
 }
 
 // initUser creates user domain
-func initUser(logger *logrus.Logger, userClient grpc.UserServiceClient, cache *redis.Client) UserInterface {
+func initUser(logger *logrus.Logger, userClient grpc.UserServiceClient, cache *redis.Client, broker *amqp.Connection) UserInterface {
 	return &user{
 		logger:     logger,
 		userClient: userClient,
 		cache:      cache,
+		broker:     broker,
 	}
 }
 
@@ -124,4 +129,8 @@ func (u *user) Delete(ctx context.Context, user entity.User) error {
 	}
 
 	return nil
+}
+
+func (u *user) UpdateUserCache(ctx context.Context, user entity.User) error {
+	return u.setUserCache(ctx, user)
 }

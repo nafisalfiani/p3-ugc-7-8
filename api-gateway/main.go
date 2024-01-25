@@ -1,8 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/grpc"
 	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/config"
@@ -55,14 +59,27 @@ func main() {
 		log.Fatalf("failed to init cache: %v", err)
 	}
 
+	// init message broker
+	conn, err := config.InitBroker()
+	if err != nil {
+		logger.Fatalln(err)
+	}
+
 	// init domain
-	dom := domain.Init(logger, userClient, cache)
+	dom := domain.Init(logger, userClient, cache, conn)
 
 	// init usecase
 	usecase := usecase.Init(cfg, logger, dom)
 
 	// init handler
-	handler := handler.Init(cfg, usecase, validator, logger)
+	handler := handler.Init(cfg, usecase, validator, logger, conn)
+
+	// start consumer on go routine
+	ch, err := handler.StartConsumer()
+	if err != nil {
+		logger.Fatalln(err)
+	}
+	logger.Debug(ch)
 
 	// init echo instance
 	e := echo.New()
@@ -86,5 +103,28 @@ func main() {
 	users.PUT("/:id", handler.UpdateUser)
 	users.DELETE("/:id", handler.DeleteUser)
 
-	e.Logger.Fatal(e.Start(fmt.Sprintf("%v:%v", cfg.Server.Base, cfg.Server.Port)))
+	// start http server on go routine
+	go func() {
+		if err := e.Start(fmt.Sprintf("%v:%v", cfg.Server.Base, cfg.Server.Port)); err != nil {
+			e.Logger.Fatal(err)
+		}
+	}()
+
+	// Graceful shutdown
+	shutdown := make(chan os.Signal, 1)
+	signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM)
+	<-shutdown
+	logger.Info("Shutting down...")
+
+	// Close Echo HTTP server
+	if err := e.Shutdown(context.Background()); err != nil {
+		logger.Fatalln("Error shutting down HTTP server:", err)
+	}
+
+	// Close Rabbit Connection
+	// conn.Close()
+	// ch.Close()
+
+	logger.Info("Server shutdown complete.")
+
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/domain"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/grpc"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/usecase"
+	"github.com/streadway/amqp"
 )
 
 // @contact.name Nafisa Alfiani
@@ -37,13 +38,22 @@ func main() {
 		logger.Fatalf("failed to connect to mongo. %v", err)
 	}
 
+	// init cache
 	redis, err := config.InitCache(cfg, logger)
 	if err != nil {
 		logger.Fatalf("failed to connect to redis. %v", err)
 	}
 
+	// init pubsub
+	rabbitMqServer, err := amqp.Dial(cfg.MessageBroker.Url)
+	if err != nil {
+		panic(err)
+	}
+
+	defer rabbitMqServer.Close()
+
 	// init domain
-	dom := domain.Init(db, redis, logger)
+	dom := domain.Init(db, redis, logger, rabbitMqServer)
 
 	// init handler
 	uc := usecase.Init(cfg, logger, dom)

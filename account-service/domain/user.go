@@ -8,6 +8,7 @@ import (
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/entity"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/errors"
 	"github.com/sirupsen/logrus"
+	"github.com/streadway/amqp"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -17,6 +18,7 @@ type user struct {
 	logger     *logrus.Logger
 	collection *mongo.Collection
 	cache      *redis.Client
+	broker     *amqp.Connection
 }
 
 type UserInterface interface {
@@ -28,11 +30,12 @@ type UserInterface interface {
 }
 
 // initUser creates user domain
-func initUser(logger *logrus.Logger, db *mongo.Collection, cache *redis.Client) UserInterface {
+func initUser(logger *logrus.Logger, db *mongo.Collection, cache *redis.Client, broker *amqp.Connection) UserInterface {
 	return &user{
 		logger:     logger,
 		collection: db,
 		cache:      cache,
+		broker:     broker,
 	}
 }
 
@@ -97,6 +100,10 @@ func (u *user) Create(ctx context.Context, user entity.User) (entity.User, error
 	newUser, err := u.Get(ctx, entity.User{Id: res.InsertedID.(primitive.ObjectID)})
 	if err != nil {
 		return newUser, errorAlias(err)
+	}
+
+	if err := u.publishUser(newUser); err != nil {
+		u.logger.Debugf("failed to publish new user message: %v", err)
 	}
 
 	return newUser, nil

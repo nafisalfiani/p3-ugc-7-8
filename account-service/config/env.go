@@ -12,6 +12,7 @@ type Value struct {
 	Auth          Auth
 	Log           Log
 	Server        Server
+	MessageBroker MessageBroker
 }
 
 type NoSqlDatabase struct {
@@ -24,13 +25,17 @@ type Auth struct {
 	SecretKey string
 }
 
+type Log struct {
+	Level string
+}
+
 type Server struct {
 	Base string
 	Port int
 }
 
-type Log struct {
-	Level string
+type MessageBroker struct {
+	Url string
 }
 
 func InitEnv() (*Value, error) {
@@ -59,6 +64,9 @@ func InitEnv() (*Value, error) {
 		Server: Server{
 			Base: os.Getenv("SERVER_BASE"),
 			Port: port,
+		},
+		MessageBroker: MessageBroker{
+			Url: os.Getenv("RABBITMQ_URL"),
 		},
 	}, nil
 }

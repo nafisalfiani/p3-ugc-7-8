@@ -19,6 +19,8 @@ type UserInterface interface {
 	Create(ctx context.Context, user entity.User) (entity.User, error)
 	Update(ctx context.Context, user entity.User) (entity.User, error)
 	Delete(ctx context.Context, user entity.User) error
+
+	UpdateUserCache(ctx context.Context, user entity.User) error
 }
 
 // initUser creates user repository
@@ -46,4 +48,8 @@ func (u *user) Update(ctx context.Context, user entity.User) (entity.User, error
 }
 func (u *user) Delete(ctx context.Context, user entity.User) error {
 	return u.user.Delete(ctx, user)
+}
+
+func (u *user) UpdateUserCache(ctx context.Context, user entity.User) error {
+	return u.user.UpdateUserCache(ctx, user)
 }

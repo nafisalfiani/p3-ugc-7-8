@@ -4,6 +4,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/nafisalfiani/p3-ugc-7-8/account-service/errors"
 	"github.com/sirupsen/logrus"
+	"github.com/streadway/amqp"
 	"go.mongodb.org/mongo-driver/mongo"
 	"gorm.io/gorm"
 )
@@ -12,9 +13,9 @@ type Domains struct {
 	User UserInterface
 }
 
-func Init(db *mongo.Client, cache *redis.Client, logger *logrus.Logger) *Domains {
+func Init(db *mongo.Client, cache *redis.Client, logger *logrus.Logger, broker *amqp.Connection) *Domains {
 	return &Domains{
-		User: initUser(logger, db.Database("account-service").Collection("user"), cache),
+		User: initUser(logger, db.Database("account-service").Collection("user"), cache, broker),
 	}
 }
 

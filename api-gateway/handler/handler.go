@@ -14,6 +14,7 @@ import (
 	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/entity"
 	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/errors"
 	"github.com/nafisalfiani/p3-ugc-7-8/api-gateway/usecase"
+	"github.com/streadway/amqp"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
@@ -25,15 +26,17 @@ type Handler struct {
 	validator *validator.Validate
 	logger    *logrus.Logger
 	user      usecase.UserInterface
+	broker    *amqp.Connection
 }
 
 // Init create new Handler object
-func Init(config *config.Value, uc *usecase.Usecases, validator *validator.Validate, logger *logrus.Logger) *Handler {
+func Init(config *config.Value, uc *usecase.Usecases, validator *validator.Validate, logger *logrus.Logger, broker *amqp.Connection) *Handler {
 	return &Handler{
 		config:    config,
 		validator: validator,
 		logger:    logger,
 		user:      uc.User,
+		broker:    broker,
 	}
 }
 
